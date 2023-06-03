@@ -41,13 +41,16 @@ exports.getbookbyid = async (req, res) => {
 
 exports.updatebook = async (req, res) => {
 	try {
-		const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
-			new: true,
-		});
+		const book = await Book.findByIdAndUpdate(
+			req.params.id,
+			req.body,
+			{ new: true },
+			{ overwrite: true }
+		);
 		if (!book) {
 			return res.status(404).json({ error: "Book not found" });
 		} else {
-			res.json({ book });
+			res.json({ data: book });
 		}
 	} catch (error) {
 		res.status(500).json({ error: "Internal Server Error" });
@@ -58,13 +61,9 @@ exports.updatebook = async (req, res) => {
 exports.deletebook = async (req, res) => {
 	try {
 		const book = await Book.findByIdAndDelete(req.params.id);
-		if (!book) {
-			return res.status(404).json({ error: "Book not found" });
-		} else {
-			res.status(204).json({ book });
-		}
-	} catch (error) {
-		res.status(500).json({ error: "Internal Server Error" });
-		console.log(error);
+		res.json(book);
+	} catch (err) {
+		console.log(err);
+		return res.status(400).json(err.message);
 	}
 };
