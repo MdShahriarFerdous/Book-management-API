@@ -12,6 +12,6 @@ router.get("/books", findBooks);
 router.post("/books", createbooks);
 router.get("/books/:id", getbookbyid);
 router.put("/books/:id", updatebook);
-router.delete("/book/:id", deletebook);
+router.delete("/books/:id", deletebook);
 
 module.exports = router;
