@@ -44,8 +44,8 @@ exports.updatebook = async (req, res) => {
 		const book = await Book.findByIdAndUpdate(
 			req.params.id,
 			req.body,
-			{ new: true },
-			{ overwrite: true }
+			{ new: true }
+			// { overwrite: true }
 		);
 		if (!book) {
 			return res.status(404).json({ error: "Book not found" });
